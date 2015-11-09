@@ -28,12 +28,12 @@ def img_to_greyscale(filename):
     
     im = Image.new("RGB", (200,200))
     im.putdata(img_rgb)
-    im.save("/home/hgera000/duality/bees/modified/%s.jpeg" % filename.split('/')[-1].split('.')[0] )
+    im.save("/home/hgera000/duality/metis-challenge/modified/%s.jpeg" % filename.split('/')[-1].split('.')[0] )
 
     return 1
 
 
-img_dir = '/home/hgera000/duality/bees/beetrain/'
+img_dir = '/home/hgera000/duality/metis-challenge/beetrain/'
 images = [img_dir+ f for f in sorted(os.listdir(img_dir),key=lambda x: int(x.split('.')[0]))]
 for image in images:
     img = img_to_greyscale(image)
