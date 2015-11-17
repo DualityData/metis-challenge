@@ -34,20 +34,21 @@ import random
 import pdb
 
 #PCA on training set
-img_dir = '/home/hgera000/duality/metis-challenge/modified2/'
+#3968 total images (dropping image id 1974). Using 2500 as training, remainder test. 
+img_dir = '/home/hgera000/duality/metis-challenge/beetrain/'
 sort_dir = sorted(os.listdir(img_dir),key=lambda x: int(x.split('.')[0]))
 random.seed(1666)
 #pdb.set_trace()
 random.shuffle(sort_dir)
-train_dir = sort_dir[0:1500]
-test_dir = sort_dir[1500:2000]
+train_dir = sort_dir[0:2500]
+test_dir = sort_dir[2500:]
 
 images = [img_dir+ f for f in train_dir]
 names = [int(f.split('/')[-1].split('.')[0]) for f in images]
 
 data = []
 for image in images:
-    #print(image)
+    print(image)
     img = img_to_matrix(image)
     img = flatten_image(img)
     data.append(img)
