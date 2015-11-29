@@ -48,7 +48,7 @@ def img_to_greyscale(filename):
 
 
 img_dir = '/home/hgera000/duality/metis-challenge/beetrain/'
-sort_dir = sorted(os.listdir(img_dir),key=lambda x: int(x.split('.')[0]))[0:2000]
+sort_dir = sorted(os.listdir(img_dir),key=lambda x: int(x.split('.')[0]))
 images = [img_dir+ f for f in sort_dir]
 names = [int(f.split('/')[-1].split('.')[0]) for f in images]
 data_orange = []
