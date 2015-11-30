@@ -34,20 +34,22 @@ import random
 import pdb
 
 #PCA on training set
-img_dir = '/home/hgera000/duality/metis-challenge/modified2/'
+#3968 total images (dropping image id 1974). Using 2500 as training, remainder test. 
+#img_dir = '/home/hgera000/duality/metis-challenge/beetrain/'
+img_dir = '/home/hgera000/duality/metis-challenge/beetrain_hsv/'
 sort_dir = sorted(os.listdir(img_dir),key=lambda x: int(x.split('.')[0]))
 random.seed(1666)
 #pdb.set_trace()
 random.shuffle(sort_dir)
-train_dir = sort_dir[0:1500]
-test_dir = sort_dir[1500:2000]
+train_dir = sort_dir[0:2500]
+test_dir = sort_dir[2500:]
 
 images = [img_dir+ f for f in train_dir]
 names = [int(f.split('/')[-1].split('.')[0]) for f in images]
 
 data = []
 for image in images:
-    #print(image)
+    print(image)
     img = img_to_matrix(image)
     img = flatten_image(img)
     data.append(img)
@@ -58,8 +60,8 @@ data = np.array(data)
 pca = RandomizedPCA(n_components=50,random_state=4289) 
 Xtrain = pca.fit_transform(data)
 print("Variation explained is %s" % pca.explained_variance_ratio_.sum())
-np.savetxt("../data/pca.train.csv", Xtrain, delimiter=",")
-np.savetxt("../data/names.train.csv", np.array(names), delimiter=",")
+np.savetxt("../data/pca.grey.train.csv", Xtrain, delimiter=",")
+np.savetxt("../data/names.grey.train.csv", np.array(names), delimiter=",")
 
 #PCA on test set
 images = []
@@ -77,5 +79,5 @@ data = np.array(data)
 
 #use the previously fitted PCA model on test set. 
 Xtest = pca.transform(data)
-np.savetxt("../data/pca.test.csv", Xtest, delimiter=",")
-np.savetxt("../data/names.test.csv", np.array(names), delimiter=",")
+np.savetxt("../data/pca.grey.test.csv", Xtest, delimiter=",")
+np.savetxt("../data/names.grey.test.csv", np.array(names), delimiter=",")
