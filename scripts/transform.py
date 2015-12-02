@@ -42,12 +42,12 @@ def img_to_greyscale(filename):
     
     im = Image.new("RGB", (200,200))
     im.putdata(img_rgb)
-    im.save("/home/hgera000/duality/metis-challenge/beetrain_hsv/%s.jpeg" % filename.split('/')[-1].split('.')[0] )
+    im.save("/home/hgera000/duality/metis-challenge/beetest_hsv/%s.jpeg" % filename.split('/')[-1].split('.')[0] )
 
     return 1
 
 
-img_dir = '/home/hgera000/duality/metis-challenge/beetrain/'
+img_dir = '/home/hgera000/duality/metis-challenge/beetest/'
 sort_dir = sorted(os.listdir(img_dir),key=lambda x: int(x.split('.')[0]))
 images = [img_dir+ f for f in sort_dir]
 names = [int(f.split('/')[-1].split('.')[0]) for f in images]
@@ -57,8 +57,8 @@ data_yellow = []
 for image in images:
     img = img_to_greyscale(image)
     
-np.savetxt("../data/count_orange.csv", np.array(data_orange), delimiter=",")
-np.savetxt("../data/count_yellow.csv", np.array(data_yellow), delimiter=",")
-np.savetxt("../data/names.transform.csv", np.array(names), delimiter=",")
+np.savetxt("../data/count_orange.test.csv", np.array(data_orange), delimiter=",")
+np.savetxt("../data/count_yellow.test.csv", np.array(data_yellow), delimiter=",")
+np.savetxt("../data/names.transform.test.csv", np.array(names), delimiter=",")
 
 

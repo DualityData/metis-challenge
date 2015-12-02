@@ -13,6 +13,7 @@ def img_to_matrix(filename):
     img = list(img.getdata())
     img = map(list, img)
     img = np.array(img) #dimensions 40,000 by 3
+    #print(img.shape)
 
     return img
 
@@ -38,17 +39,23 @@ import pdb
 #img_dir = '/home/hgera000/duality/metis-challenge/beetrain/'
 img_dir = '/home/hgera000/duality/metis-challenge/beetrain_hsv/'
 sort_dir = sorted(os.listdir(img_dir),key=lambda x: int(x.split('.')[0]))
+train_dir = sort_dir #run on full training set. 
 random.seed(1666)
 #pdb.set_trace()
 random.shuffle(sort_dir)
-train_dir = sort_dir[0:2500]
-test_dir = sort_dir[2500:]
+#train_dir = sort_dir[0:2500]
+#test_dir = sort_dir[2500:]
+
+img_dir2 = '/home/hgera000/duality/metis-challenge/beetest_hsv/'
+sort_dir2 = sorted(os.listdir(img_dir2),key=lambda x: int(x.split('.')[0]))
+test_dir = sort_dir2 #run on full test set. 
+
 
 images = [img_dir+ f for f in train_dir]
 names = [int(f.split('/')[-1].split('.')[0]) for f in images]
 
 data = []
-for image in images:
+for image in images[0:3000]:
     print(image)
     img = img_to_matrix(image)
     img = flatten_image(img)
@@ -65,12 +72,12 @@ np.savetxt("../data/names.grey.train.csv", np.array(names), delimiter=",")
 
 #PCA on test set
 images = []
-images = [img_dir+ f for f in test_dir]
+images = [img_dir2+ f for f in test_dir]
 names = [int(f.split('/')[-1].split('.')[0]) for f in images]
 
 data = []
 for image in images:
-    #print(image)
+    print(image)
     img = img_to_matrix(image)
     img = flatten_image(img)
     data.append(img)
