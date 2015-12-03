@@ -94,7 +94,7 @@ print(mean(fit.rf$resample$ROC))
 
 outpred.rf = predict.train(fit.rf,type="prob",newdata=rhs.test)
 
-print(roc(test$genus,outpred.rf$bumble)$auc)
+#print(roc(test$genus,outpred.rf$bumble)$auc)
 
 #-----------
 #LASSO
@@ -137,16 +137,16 @@ lammin = fit.lasso$lambda.min
 outpred.lasso = data.table(honey=predict(fit.lasso,newx=rhs.test,s=lam1se,type='response')[,1])
 outpred.lasso[,bumble := 1-honey]
 
-print(roc(test$genus,outpred.lasso$bumble)$auc)
+#print(roc(test$genus,outpred.lasso$bumble)$auc)
 
 
 
 
 #combination
-print(roc(test$genus,0.5*(outpred.rf$bumble)+0.5*(outpred.lasso$bumble))$auc)
+#print(roc(test$genus,0.5*(outpred.rf$bumble)+0.5*(outpred.lasso$bumble))$auc)
 
 #finalforecast
-output = data.frame(id=test_ids,genus=0.5*(outpred.rf$bumble)+0.5*(outpred.lasso$bumble))
+output = data.frame(id=test_ids,genus=0.7*(outpred.rf$bumble)+0.3*(outpred.lasso$bumble))
 write.table(output,file="output.csv",sep=",",row.names=FALSE)
 
 

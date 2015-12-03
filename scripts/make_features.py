@@ -37,7 +37,7 @@ import pdb
 #PCA on training set
 #3968 total images (dropping image id 1974). Using 2500 as training, remainder test. 
 #img_dir = '/home/hgera000/duality/metis-challenge/beetrain/'
-img_dir = '/home/hgera000/duality/metis-challenge/beetrain_hsv/'
+img_dir = '/home/hgera000/duality/metis-challenge/beetrain/'
 sort_dir = sorted(os.listdir(img_dir),key=lambda x: int(x.split('.')[0]))
 train_dir = sort_dir #run on full training set. 
 random.seed(1666)
@@ -46,7 +46,7 @@ random.shuffle(sort_dir)
 #train_dir = sort_dir[0:2500]
 #test_dir = sort_dir[2500:]
 
-img_dir2 = '/home/hgera000/duality/metis-challenge/beetest_hsv/'
+img_dir2 = '/home/hgera000/duality/metis-challenge/beetest/'
 sort_dir2 = sorted(os.listdir(img_dir2),key=lambda x: int(x.split('.')[0]))
 test_dir = sort_dir2 #run on full test set. 
 
@@ -66,9 +66,9 @@ data = np.array(data)
 
 pca = RandomizedPCA(n_components=50,random_state=4289) 
 Xtrain = pca.fit_transform(data)
-print("Variation explained is %s" % pca.explained_variance_ratio_.sum())
-np.savetxt("../data/pca.grey.train.csv", Xtrain, delimiter=",")
-np.savetxt("../data/names.grey.train.csv", np.array(names), delimiter=",")
+#print("Variation explained is %s" % pca.explained_variance_ratio_.sum())
+np.savetxt("../data/pca.train.csv", Xtrain, delimiter=",")
+np.savetxt("../data/names.train.csv", np.array(names), delimiter=",")
 
 #PCA on test set
 images = []
@@ -86,5 +86,5 @@ data = np.array(data)
 
 #use the previously fitted PCA model on test set. 
 Xtest = pca.transform(data)
-np.savetxt("../data/pca.grey.test.csv", Xtest, delimiter=",")
-np.savetxt("../data/names.grey.test.csv", np.array(names), delimiter=",")
+np.savetxt("../data/pca.test.csv", Xtest, delimiter=",")
+np.savetxt("../data/names.test.csv", np.array(names), delimiter=",")
